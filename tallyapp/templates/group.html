@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<script src="https://code.jquery.com/jquery-git.js"></script>
+<style>
+    .close {
+        position: absolute;
+        top: 3px;
+        right: 8px;
+        font-size: 25px;
+        color: rgb(255, 255, 255);
+        transform: rotate(45deg);
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .form-popup {
+        display: none;
+        position: fixed;
+        top: 250px;
+        right: 15px;
+        border: 1px solid #f1f1f1;
+        z-index: 9;
+        width: 300px;
+        height: 600px;
+      }
+    
+      .content a:hover {background-color: rgb(238, 167, 75);}
+      
+      /* Add styles to the form container */
+      .form-container {
+        max-width: 50px;
+        height: 500px;
+        padding: 10px;
+      }
+      .form-container1 {
+        max-width: 350px;
+        height: 500px;
+        padding: 2px;
+       
+      }
+     
+
+
+</style>
+<script>
+    function showGroup(){
+        document.getElementById('underForm').style.display= "block";
+    }
+    function setData(){
+        document.getElementById('under').value= '*Primary';
+        document.getElementById('under').value= 'Bank Accounts';
+       //
+        document.getElementById('underForm').style.visibility= "hidden";
+        }
+
+</script>
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-3 m-0 p-0"></div>
+    <div class="col-sm-6 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);">
+        <a href="javascript:history.go(-1);" class="close">+</a>
+    <h6 class="bg-info text-light p-2">Group Creation</h6>
+    <div  style="text-align: center;margin-top:-35px;font-weight:900">{{cmp.name}}</div>
+    <div hidden  style="text-align: center;margin-top:-35px;font-weight:900">{{cmp.id}}</div>
+
+<form id="myForm" action="{% url 'creategroup' cmp.id %}" method="post" class="p-5">
+    {% csrf_token %}
+        <div hidden>{{cmp.id}}</div>
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="gname">Name :</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input type="text" id="gname" onfocus="this.value=''" name="gname" class="form-control" placeholder=""></div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="alia">(Alias) :</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input type="text" id="alia" name="alia"class="form-control" placeholder=""></div> 
+                    </div>
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="under">Under :</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select name="under" id="under" class="form-control" >
+                                
+                                <option value="*Primary">*Primary</option>
+                                <option value="Bank Account">Bank Accounts</option>
+                                <option value="Bank OCC A/c">Bank OCC A/c</option>
+                                <option value="Bank OD A/c">Bank OD A/c</option>
+                                <option value="Branch Divisions">Branch Divisions</option>
+                                <option value="Capital Amount">Capital Amount</option>
+                                <option value="Cash in Hand">Cash in Hand</option>
+                                <option value="Current Assets">Current Assets</option>
+                                <option value="Current Liabilities">Current Liabilities</option>
+                                <option value="Deposits (Asset)">Deposits (Asset)</option>
+                                <option value="Direct Expenses">Direct Expenses</option>
+                                <option value="Direct Incomes">Direct Incomes</option>
+                                <option value="Duties and Taxes">Duties and Taxes</option>
+                                <option value="Expenses(Direct)">Expenses(Direct)</option>
+                                <option value="Expenses(Indirect)">Expenses(Indirect)</option>
+                                <option value="Fixed Assets">Fixed Assets</option>
+                                <option value="Income (Direct)">Income (Direct)</option>
+                                <option value="Income (Indirect)">Income (Indirect)</option>
+                                <option value="Investments">Investments</option>
+                                <option value="Loans & Advances (Asset)">Loans & Advances (Asset)</option>
+                                <option value="Loans (Liability)">Loans (Liability)</option>
+                                <option value="Misc. Expenses (Asset)">Misc. Expenses (Asset)</option>
+                                <option value="Provisions">Provisions</option>
+                                <option value="Purchase Accounts">Purchase Accounts</option>
+                                <option value="Reserves & Surplus">Reserves & Surplus</option>
+                                <option value="Retained Earnings">Retained Earnings</option>
+                                <option value="Sales Accounts">Sales Accounts</option>
+                                <option value="Secured Loans">Secured Loans</option>
+                                <option value="Stock-in-Hand">Stock-in-Hand</option>
+                                <option value="Sundry Creditors">Sundry Creditors</option>
+                                <option value="Sundry Debtors">Sundry Debtors</option>
+                                <option value="Suspence A/c">Suspence A/c</option>
+                                <option value="Unsecured Loans">Unsecured Loans</option>  
+                                {% for i in grup %} 
+                                <option >{{i.name}}</option>  
+                                {% endfor %} 
+
+                            </select>
+                        </div> 
+                    </div>
+                    
+                           
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="subled">Groups behaves like a sub-ledger:</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select id="subled" name="sub_ledger" class=" form-control w-25">
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="nett">Nett Debit/Credit Balance for Reporting:</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select id="nett" name="nee" class=" form-control w-25">
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="cal">Used for
+                            calculation
+                            <br><small style="font-size: 10px;">(for example:taxes,discounts,Sales invoice
+                                entries)</small>:</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select id="cal" name="cal" class=" form-control w-25">
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="meth"> Method to allocate when used in purchase invoice :</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select id="meth" name="meth" class=" form-control">
+                                <option value="" selected>Not Applicable</option>
+                                <option value="Appropriate by Qty">Appropriate by Qty</option>
+                                <option value="Appropriate by Value">Appropriate by Value</option>
+                            </select>
+                        </div> 
+                    </div>
+
+                    <div><input type="submit" style="margin-left: 250px;" value="create" class="btn btn-info"></div>
+                    <!-- <div class="flexy w-100 py-4"><button id="cbtn" type="button" class="btn btn-info w-50">Create</button></div> -->
+    
+</form>
+
+</div>
+</div>
+<div class="col-sm-3  m-0 p-0"></div>
+
+</div> 
+
+
+
+{% endblock body %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-4 m-0 p-0"></div>
+    <div class="col-sm-4 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);height: 500px;">
+        <div  class="bg-info text-light"><span style="margin-left: 10px;">Display More Reports</span></div>
+        <div class="text-left" style="margin-left: 100px;margin-top:10px;">
+            <a href="" class="btn disabled m-0 p-0 mb-2">ACCOUNTING</a><br>
+            <a href="{% url 'accountBook' comp.id %}">Account Books</a><br>
+            <a href="">Statement of Accounts</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

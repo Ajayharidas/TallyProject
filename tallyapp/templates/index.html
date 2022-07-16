@@ -1,0 +1,396 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from codervent.com/syntrans/demo/horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Jan 2021 05:00:52 GMT -->
+
+<head>
+    {% load static %}
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Reset styles -->
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
+    <!-- Google Fonts Muli -->
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Tally</title>
+    <!--favicon-->
+    <link rel="icon" href="{% static 'assets/images/favicon-32x32.png' %}" type="image/png" />
+    <!-- Vector CSS -->
+    <link href="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.css' %}" rel="stylesheet" />
+    <!--plugins-->
+    <link href="{% static 'assets/plugins/simplebar/css/simplebar.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/plugins/metismenu/css/metisMenu.min.css' %}" rel="stylesheet" />
+    <!-- loader-->
+    <link href="{% static 'assets/css/pace.min.css' %}" rel="stylesheet" />
+    <script src="{% static 'assets/js/pace.min.js' %}"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}" />
+    <!-- App CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/app.css' %}" />
+    <style>
+        .a {
+            font-family: "Poppins", sans-serif;
+        }
+        body{
+            overflow: hidden;
+          }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        
+        $(document).ready(function() {
+            var $select1 = $('#select1'),
+                $select2 = $('#select2'),
+                $select3 = $('#name'),
+                $options = $select2.find('option'),
+                $options1 = $select3.find('option');
+            $select1.on('change', function() {
+                $select2.html($options.filter('[text="' + this.value + '"]'));
+                $select3.html($options1.filter('[text="' + this.value + '"]'));
+            }).trigger('change');
+
+                     
+            document.getElementById("currentDate").innerHTML=new Date().toDateString();
+
+            var table = document.getElementById("table");
+            var cells = table.getElementsByTagName("td");
+            for (var i = 0; i < cells.length; i++) {
+                if(i == 0){
+                    document.getElementById("compName").innerHTML= cells[0].innerText;
+                    //document.getElementById("compId").innerHTML= cells[1].innerText;
+                    
+                    //alert(cells[1].innerText);
+                    setName(cells[0].innerText, cells[1].innerText);
+                }
+             }
+        });
+        function getVal(route){
+           window.location.href=route+"/"+document.getElementById('cid').innerHTML;
+                   
+        }
+
+        function setDate(){
+            document.getElementById("currentDate").innerHTML= document.getElementById('enterDate').value;
+        }
+        function setPeriod(){
+            document.getElementById("dateP1").innerHTML= document.getElementById('dateperiod1').value;
+            document.getElementById("dateP2").innerHTML= document.getElementById('dateperiod2').value;
+        }
+    </script>
+</head>
+<body style="background-color: #2f516f;">
+<div class="wrapper">
+                <!--header-->
+    <div class="wrapper">
+                    <!--header-->
+        <header class="top-header" style="background-color: #213b52;">
+        <nav class="navbar navbar-expand">
+            <div class="sidebar-header">
+                <div class="d-none d-lg-flex">
+                    <img style="width: 80px;" src="https://www.antraweb.com/img/tally-prime/tallyprime-logo01.png" class="logo-icon-2" alt="" />
+                </div>
+                <div class="a">
+                    <h4><b>EDU</b></h4>
+                </div>
+                <a href="javascript:;" class="toggle-btn ml-lg-auto"> <i class="bx bx-menu"></i></a>
+            </div>
+            <div class="flex-grow-1 search-bar ">
+                <div class="input-group w-50">
+                    <div class="input-group-prepend search-arrow-back">
+                        <button class="btn btn-search-back" type="button"><i class="bx bx-arrow-back"></i></button>
+                    </div>
+                    <input type="text" class="form-control" placeholder="search" />
+                    <div class="input-group-append">
+                        <button class="btn btn-search" type="button"><i class="lni lni-search-alt"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="right-topbar ml-auto">
+                <ul class="navbar navbar-expand" style="list-style-type: none; margin: 0; padding: 0;">
+                <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="javascript:;" data-toggle="dropdown" style=" display: block; padding: 8px 16px; text-decoration: none;">
+                <i class="fa fa-gear" style="font-size:24px"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <ul class="a" style=" list-style-type: none; margin: 0; padding: 0; width: 200px;">
+                        <li><a href="" style="display: block; padding: 8px 16px; text-decoration: none">Accounts and Settings</a></li>
+                        <li><a href="" style="display: block; padding: 8px 16px; text-decoration: none">Customize Form Style</a></li>
+                        <li><a href="" style="display: block; padding: 8px 16px; text-decoration: none">Chart of Accounts</a></li>
+                    </ul>
+                </div>
+                </ul>
+            </div>
+        </nav>
+</header>
+           
+        
+            <!--end header-->
+            <!--navigation-->
+           
+            <div id="nav1" class="nav-container" style="background-color: #213b52;">
+                <nav class="topbar-nav">
+                    <ul class="metismenu" id="menu">
+                        <li>
+                            <a href="{% url 'index' %}">
+                                <div class="menu-title">Dashboard</div>
+                            </a>
+                        </li>
+                        <li>
+                          <a href="javascript:;" class="has-arrow">
+                              <div class="parent-icon"><i class="bx bx-home-alt"></i>
+                              </div>
+                              <div class="menu-title">Create</div>
+                          </a>
+                          <ul>
+                              <li>
+                                  <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Accounting Masters</a>
+                                  <ul>
+                                      <li>
+                                         
+                                          <a onclick="getVal('creategroup')">Group</a>
+                                          <a onclick="getVal('ledger')">Ledger</a>
+                                          <a onclick="getVal('costcentre')">Cost centre</a>
+                                          <a onclick="getVal('currency')">Currency</a>
+                                          <a onclick="getVal('ratesofexchange')">Rates of 
+                                            Exchange
+                                          </a>
+                                          <a onclick="getVal('voucher')">Voucher Type</a>
+                                         
+                                      </li>
+                                  </ul>
+                                  
+                              </li>
+                              
+                              
+                          </ul>
+                      </li>
+                        <li>
+                           
+                            <a  onclick="getVal('features')" class="has-arrow">
+                                <div class="parent-icon"><i class="bx bx-home-alt"></i>
+                                </div>
+                                <div class="menu-title">Features</div>
+                            </a>
+                          
+                        </li>
+                        <li>
+                            <a href="{% url 'company' %}" >
+                                <div class="parent-icon"><i class="bx bx-file"></i>
+                                </div>
+                                <div  class="menu-title" >Company</div>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="has-arrow">
+
+                                <div class="parent-icon"><i class='bx bx-briefcase-alt'></i>
+                                </div>
+                                <div class="menu-title">Date</div>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a data-toggle="modal" data-target="#myModal" href="">Date</a>
+                                            <a data-toggle="modal" data-target="#myModal1" href="">Period</a>
+                                   
+                                </li>
+                               
+                                
+                                
+                            </ul>
+                            
+                        </li>
+                        <!--starting of modal-->
+            
+                
+                        <li>
+                            <a onclick="window.print()"  href="javascript:;" class="has-arrow">
+
+                                <div class="parent-icon"><i class='bx bx-briefcase-alt'></i>
+                                </div>
+                                <div class="menu-title">Print</div>
+                            </a>
+                            
+                        </li>
+                        <li>
+                            <a onclick="getVal('displaymore')">
+                                <div class="parent-icon"><i class="bx bx-file"></i>
+                                </div>
+                                <div class="menu-title">Display More Reports</div>
+                            </a>
+                        </li>
+                      
+                </nav>
+
+
+                
+            </div>
+            <div class="page-wrapper">
+              <div class="page-content-wrapper" style="background-color: #2f516f;">
+                  <div class="container pt-3">
+                      
+                  </div>
+                  <style>
+                    .close {
+                        position: absolute;
+                        top: 3px;
+                        right: 8px;
+                        font-size: 25px;
+                        color: rgb(255, 255, 255);
+                        transform: rotate(45deg);
+                        cursor: pointer;
+                        text-decoration: none;
+                    }
+                    .flexy{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                </style>
+                <script>
+                    function setName(comp, id){
+                        document.getElementById('compName').innerHTML=comp;
+                       
+                        document.getElementById('cid').innerHTML= id;
+                       
+                    }
+                </script>
+                <div class="row container-fluid p-0 mx-0">
+                    <div class="col-sm-3 m-0 p-0"></div>
+                    <div class="col-sm-6 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);">
+                        <!-- <a href="javascript:history.go(-1);" class="close">+</a> -->
+                        
+                    <div  class="bg-info text-light">Gateway of Tally</div>
+                   
+                        <div hidden id="cid" ></div>
+                    <div style="margin-left:18px;font-size:11px;margin-top:25px">CURRENT PERIOD</div>
+                    <div id=""></div>
+                    <a id="dateP1" style="font-weight: 900;margin-left:18px;">Apr 1 2022</a>&nbsp;to
+                    <a id="dateP2" style="font-weight: 900;">Mar 1 2023</a>
+                        <div style="text-align: right; margin-top:-35px;margin-right:18px;font-size:11px">CURRENT DATE</div>
+                        <div style="text-align: right;margin-top:-3px;margin-right:18px;font-weight:900" id="currentDate"></div>
+                        
+                    <hr>
+                    
+                        <div style="margin-left:18px;font-size:11px">NAME OF COMPANY</div>
+                        <div style="text-align: right; margin-top:-18px;margin-right:18px;font-size:11px">DATE OF LAST ENTRY</div>
+                    
+                    <!-- <h6>&nbsp;&nbsp;Date of last entry</h6> -->
+                    <hr>
+                    
+                    <div style="margin-left:18px;font-weight: 900; font-size:15px;" id="compName"> </div>
+                    <!-- <div id="compId"></div> -->
+                    <div style="top:550px">
+                <form id="myForm" action="" method="post" class="p-3">
+                        {% csrf_token %}
+                        <div>
+                            <table id="table">
+                            {% for i in comp %}
+                            {%if i.active == 1 %}
+                            <tr>
+                                <td>
+                            <a style="cursor:pointer;" onclick="setName('{{i.name}}','{{i.id}}');">{{i.name}}</a><br>
+                        </td>
+                        <td>
+                            <a  style="cursor:pointer;color:rgba(0,0,0,0.2);font-size:2px;" onclick="setName('{{i.name}}','{{i.id}}');">{{i.id}}</a><br>
+                        </td>        
+                        </tr>
+                            {% endif %}
+                            {% endfor %}
+                            </table>
+                        </div>
+                                    
+                
+                                    
+                    
+                </form>
+                
+                </div>
+                </div>
+                <div class="col-sm-3  m-0 p-0"></div>
+                
+                </div> 
+                
+              </div>
+          </div>
+    <!-- end wrapper -->
+
+
+    <div class="modal fade" id="myModal" role="dialog" style="margin-top: 150px;">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-body">
+        <form action="" method="POST" >
+        {% csrf_token %}
+            <div class="form-group" align="center">
+                <input type="date" name="currentdate" id="enterDate" placeholder="Date" class="form-control w-50"><br>
+                <input onclick="setDate()" type="submit"  value="Submit" class="form-control w-25 btn btn-info"><br>
+            </div>
+        </form>
+        </div>
+        </div>
+        </div>
+        </div> <!--end of modal-->
+    <!--starting of modal-->
+    <div class="modal fade" id="myModal1" role="dialog" style="margin-top: 150px;">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-body">
+        <form action="" method="POST" >
+        {% csrf_token %}
+            <div class="form-group" align="center">
+                <input type="date" name="dateperiod1"  id="dateperiod1" class="form-control w-50"><br>
+                <label>to</label><br>
+                <input type="date" name="dateperiod2" id="dateperiod2" class="form-control w-50"><br>
+                <input type="submit" onclick="setPeriod()"  value="Submit" class="form-control w-25 btn btn-info"><br>
+            </div>
+        </form>
+        </div>
+        </div>
+        </div>
+        </div> <!--end of modal-->
+
+    <!-- JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <!--plugins-->
+    <script src="{% static 'assets/plugins/simplebar/js/simplebar.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/metismenu/js/metisMenu.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
+    <!-- Vector map JavaScript -->
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-in-mill.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-us-aea-en.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-uk-mill-en.js' %}"></script>
+    <script src="{% static 'assets/plugins/vectormap/jquery-jvectormap-au-mill.js' %}"></script>
+    <script src="{% static 'assets/plugins/apexcharts-bundle/js/apexcharts.min.js' %}"></script>
+    <script src="{% static 'assets/js/index.js' %}"></script>
+    <!-- App JS -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+
+    <script>
+        new PerfectScrollbar('.dashboard');
+        new PerfectScrollbar('.dashboard-top-countries');
+    </script>
+</body>
+
+
+<!-- Mirrored from codervent.com/syntrans/demo/horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Jan 2021 05:00:53 GMT -->
+
+</html>
+
+

@@ -1,0 +1,1258 @@
+
+    {% extends 'base.html' %}
+    {% block body %}
+    {% load static %}
+    <style>
+        .enter{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+    </style>
+
+  <div class="m-0">
+    <h6 style="" class="bg-info text-light p-1 m-1 text-left">Create ledger</h6>
+    <div  style="text-align: center;margin-top:-35px;font-weight:900">{{cmp.name}}</div>
+
+            <form  style="background-color:rgba(0,0,0,.4);" method="post" action="{% url 'ledger' cmp.id %}">
+                {% csrf_token %}
+                
+                <div class="row container-fluid p-0 m-0" >
+
+                    <div class="col-sm-6 m-0 p-4">
+
+                        <div class="row container-fluid  p-2 m-0">
+                            <div class="col-sm-4 m-0 p-0"> <label >Name</label></div>
+                            <div class="col-sm-8 m-0 p-0"><input onchange="showname()" required type="text" class="form-control" id="name"  placeholder="" name="name"></div>
+                        </div>
+
+                        <div class="row container-fluid  p-2 m-0">
+                            <div class="col-sm-4 m-0 p-0"> <label >Alias</label></div>
+                            <div class="col-sm-8 m-0 p-0"> 
+                            <input type="text" class="form-control" id="" placeholder="" name="alias"></div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-sm-3 m-0 p-0"></div>
+
+                
+                
+            </div>
+
+                
+                    
+                   
+                <div class="row container-fluid  p-0 m-0" style=" border: 1px solid rgba(128, 128, 128, 0.6);">
+                    <div class="col-sm-4 m-0 p-4" style=" border-right: 1px solid rgba(128, 128, 128, 0.6);">
+                        
+
+                        <div class="row container-fluid  p-2 m-0">
+                            <div class="col-sm-6 m-0 p-0"> <label for="c">Under</label></div>
+                            
+                            <div class="col-sm-6 m-0 p-0">
+                                <select name="under" id="under" class="form-control" onchange="showunder()" required>
+                                    <option value="">----Select-----</option>
+                                    <option value="BankAccount1">BankAccounts</option>
+                                    <option value="Bank_OCC_AC">Bank OCC A/c</option>
+                                    <option value="Bankod1">Bank OD A/c</option>
+                                    <option value="Branch_divisions">Branch Divisions</option>
+                                    <option value="Capital_amount">Capital Amount</option>
+                                    <option value="Cash_in_hand">Cash in Hand</option>
+                                    <option value="curntasts1">Current Assets</option>
+                                    <option value="current_liabilities">Current Liabilities</option>
+                                    <option value="Bank_Account">Deposits (Asset)</option>
+                                    <option value="dirctexpncs1">Direct Expenses</option>
+                                    <option value="dirctincome">Direct Incomes</option>
+                                    <option value="dutiesAndtax">Duties and Taxes</option>
+                                    <option value="Expences_Direct">Expenses(Direct)</option>
+                                    <option value="Expences_Indirect">Expenses(Indirect)</option>
+                                    <option value="Fixed_Assets">Fixed Assets</option>
+                                    <option value="income_direct">Income (Direct)</option>
+                                    <option value="income_Indirect">Income (Indirect)</option>
+                                    <option value="Investments">Investments</option>
+                                    <option value="loans_advance">Loans & Advances (Asset)</option>
+                                    <option value="Loans_liability">Loans (Liability)</option>
+                                    <option value="Mis_Expenses">Misc. Expenses (Asset)</option>
+                                    <option value="provisions">provisions</option>
+                                    <option value="Purchase_Account">Purchase Accounts</option>
+                                    <option value="retained">Retained Earnings</option>
+                                    <option value="Sales_Account">Sales Accounts</option>
+                                    <option value="Secured_loans">Secured Loans</option>
+                                    <option value="stock">Stock-in-Hand</option>
+                                    <option value="Sundry_Creditors">Sundry Creditors</option>
+                                    <option value="Sundry_Debtors">Sundry Debtors</option>
+                                    <option value="Suspence">Suspence A/c</option>
+                                    <option value="Unsecured_loans">Unsecured Loans</option> 
+                                    {% for i in grup %} 
+                                <option >{{i.name}}</option>  
+                                {% endfor %}   
+                                </select>
+                            </div>
+                            
+
+
+    <div class="bankac hide p-0 m-0 w-100" id="bankac">
+        
+        <h6 class="p-3">Bank Account Details</h6>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">A/c Holder's Name</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" value="{{cmp.name}}" class="form-control" id="acna" placeholder="" name="holder_name"></div>
+            
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">A/c No.</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="acno" placeholder="" name="acc_no"></div>
+            
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">IFS Code</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="ifs" placeholder="" name="ifsc"></div>
+            
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">SWIFT Code</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="swift" placeholder="" name="swift_code"></div>
+            
+        </div>
+
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Bank Name</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="bank_name" id="" class="form-control">
+                    <option value="not applicable">Not applicable</option> 
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">Branch</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="branch" placeholder="" name="branch"></div>
+            
+        </div>
+        <h6 class="p-3">Bank Configuration</h6>
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Set/Alter range for Cheque Books</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="set_cheque" id="chqrng" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>  
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Enable Cheque printing</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="ch_printing" id="chqprnt" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes" selected>Yes</option>  
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Set/Alter Cheque Printing Configuration</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="ch_config" id="ch_config" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>  
+                    
+                </select>
+            </div>
+        </div>
+
+
+    </div>
+
+<!-- bank occ and od -->
+<div class="bankod hide p-0 py-sm-3 m-0 w-100"id="bankod">
+
+    <div class="row container-fluid  p-2 m-0" >
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Set OD limit</label></div>
+        <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="odlimit" placeholder="" name="od_limit"></div>
+        
+    </div>
+
+ <h6>Bank Account Details</h6>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">A/c Holders Name</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" value="{{cmp.name}}" class="form-control" id="acna" placeholder="" name="holder_name"></div>
+            
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">A/c Number</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="acno" placeholder="" name="ac_number"></div>
+            
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">IFS Code</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="ifs" placeholder="" name="ifsc"></div>
+            
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">SWIfT Code</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="swift" placeholder="" name="swift_code"></div>
+            
+        </div>
+
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Bank Name</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="bank_name" id="" class="form-control">
+                    <option value="not applicable">Not applicable</option> 
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="row container-fluid  p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">Branch</label></div>
+            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="branch" placeholder="" name="branch_name"></div>
+            
+        </div>
+
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Set/Alter Range of cheque Books</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="alter_chk_bks" id="chqrng" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>  
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Enable Cheque printing</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="enbl_chk_printing" id="chqprnt" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>  
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="row container-fluid   p-2 m-0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Set/Alter Cheque Printing Configuration</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="chqconfg" id="chqconfg" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>  
+                    
+                </select>
+            </div>
+        </div>
+
+</div>
+
+
+
+<style>
+    .hide{
+        display: none;
+        align-items:center;
+        justify-content:center;
+        flex-direction: column;
+    }
+</style>
+
+
+<script>
+    function showAssets(){
+            var status = document.getElementById("calcgst");
+            var a = status.value
+            console.log(a);
+            if( a == "GST" ){
+                console.log(a);
+
+                document.getElementById('mtdcalc0').style.display = "flex";
+                document.getElementById('Approp0').style.display = "flex";
+            }
+            else{
+                
+                document.getElementById('mtdcalc0').style.display = "none";
+                document.getElementById('Approp0').style.display = "none";
+            }
+        }
+
+        
+        function showbased(){
+            var status = document.getElementById("Approp");
+            var a = status.value
+            console.log(a);
+            if( a == "Services" ){
+                console.log(a);
+
+                document.getElementById('qlty').style.display = "none";
+                
+            }
+            else{
+                document.getElementById('qlty').style.display = "flex";
+                
+            }
+        }
+    
+        function showname(){
+            
+            var name = document.getElementById("name");
+            var mailingname = name.value;
+            document.getElementById("mailingname").value= mailingname;
+        }
+        function showunder(){
+            var status = document.getElementById("under");
+            var a = status.value;
+            console.log(a);
+            if( a == "BankAccount1" ){
+                console.log(a);
+
+                document.getElementById('bankac').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankdetails').style.display = "none";
+                document.getElementById('curntasts').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('bank2').style.display = "none";
+                document.getElementById('bank3').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+                
+            }
+        
+            else if( a == "Bank_OCC_AC" ) {
+                
+                document.getElementById('bankod').style.display = "flex";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('bankdetails').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('bank2').style.display = "none";
+                document.getElementById('bank3').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Bankod1" ) {
+                
+                document.getElementById('bankod').style.display = "flex";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('bank2').style.display = "none";
+                document.getElementById('bank3').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "curntasts1" ) {
+                document.getElementById('roundmd20').style.display = "flex";
+                document.getElementById('Statutory_Details').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankdetails').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "dirctexpncs1" ) {
+                
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            
+            else if( a == "dirctincome" ) {
+                
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "dutiesAndtax" ) {
+
+                document.getElementById('dutiesandtax1').style.display = "flex";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Expences_Direct" ) {
+                
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Expences_Inirect" ) {
+                
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Fixed_Assets" ) {
+
+                document.getElementById('dirctexpns4').style.display = "flex";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+
+               
+            }
+            else if( a == "income_direct" ) {
+                
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "income_Indirect" ) {
+                
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Loans_liability" ) {
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Purchase_Account" ) {
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Sales_Account" ) {
+                document.getElementById('direct_expences').style.display = "flex";
+                document.getElementById('applicablegst0').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Secured_loans" ) {
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Sundry_Creditors" ) {
+                document.getElementById('Sundry_commit').style.display = "flex";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+            else if( a == "Sundry_Debtors" ) {
+                document.getElementById('Sundry_commit').style.display = "flex";
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+               
+            }
+
+            else if( a == "Unsecured_loans" ) {
+                document.getElementById('roundmd20').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "flex";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('applicablegst0').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+            }
+
+            else{
+                document.getElementById('Sundry_commit').style.display = "none";
+                document.getElementById('dirctexpns4').style.display = "none";
+                document.getElementById('direct_expences').style.display = "none";
+                document.getElementById('dutiesandtax1').style.display = "none";
+                document.getElementById('bankod').style.display = "none";
+                document.getElementById('bankac').style.display = "none";
+                document.getElementById('Statutory_Details').style.display = "none";
+                document.getElementById('bank2').style.display = "block";
+                document.getElementById('bank3').style.display = "flex";
+                document.getElementById('applicablegst0').style.display = "none";
+               
+
+            }
+
+        }
+        
+function rounding(){
+    var status = document.getElementById("roundmd2");
+    var a = status.value
+    console.log(a);
+    if( a == "null" ){
+        console.log(a);
+        document.getElementById('rndlmt20').style.display = "none";
+        
+        
+        
+    }
+    else{
+        document.getElementById('rndlmt20').style.display = "flex";
+        document.getElementById('valtyp0').style.display = "none";
+    
+        
+        
+    }
+}
+
+</script>
+
+
+
+
+<div class="dirctexpncs hide p-0 m-0 w-100" id="direct_expences">
+
+    <div class="row container-fluid   p-2 m-0 " id="typldr0">
+        <div class="col-sm-6 m-0 p-0 "> <label for="">Types of ledger</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="ledger_type" id="typldr" class="form-control" onchange="showdirctexp2()">
+                <option value="null">----Select---</option>
+                <option value="Not_applicable">Not Applicable</option>
+                <option value="Discount">Discount</option>
+                <option value="invroundg">Invoice Rounding</option>    
+            </select>
+        </div>
+    </div>
+
+    <div class="row container-fluid   p-2 m-0 hide w-100" id="roundmd0">
+        <div class="col-sm-6 m-0 p-0 "> <label for="">Rounding Method</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="rounding_method" id="roundmd" class="form-control">
+                <option value="Down_Rounding">Down Rounding</option>
+                <option value="Normal_Rounding">Normal Rounding</option>
+                <option value="Up_Rounding">Up Rounding</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="row container-fluid  p-2 m-0 hide w-100"  id="rndlmt0" >
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Round limit</label></div>
+        <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="rndlmt" placeholder="" name="round_limit" value="1"></div>
+    </div>
+
+
+    <div class="dirctexpns2 hide p-0 m-0 w-100" id="dirctexpns2">
+
+    
+        <h6>Statutory Details</h6>
+        <div class="row container-fluid   p-2 m-0" id="applicablegst0">
+            <div class="col-sm-6 m-0 p-0 "> <label for="">Is GST applicable</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="is_gst_applicable" id="applicablegst" class="form-control" onchange="showdirctexp3()">
+                    <option value="Not_Applicable"> Not Applicable</option>
+                    <option value="Applicable">Applicable</option>
+                    <option value="Undefined">Undefined</option>
+                </select>
+            </div>
+        </div>         
+
+        <div class="row container-fluid  p-2 m-0 hide" id="stgst0">
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">Set/Alter GST details </label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="Set_alter_GST" id="stgst" class="form-control">
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>  
+                    
+                </select>
+            </div>          
+        </div>
+
+        <div class="row container-fluid  p-2 m-0 hide w-100"  id="typsofsply0" >
+            <div class="col-sm-6 m-0 p-0"> <label for="pan">Types of Supply</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="type_of_supply" id="typsofsply" class="form-control">
+                    <option value="Service">Service</option>
+                    <option value="Goods">Goods</option>  
+                    
+                </select>
+            </div>
+        </div>
+
+
+        <div class="row container-fluid   p-2 m-0 hide" id="calcgst0">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Include assessable value calculations for </label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="assessable_calculation" id="calcgst2" class="form-control" onchange="showAssets2()">
+                    <option value="Not_Applicable">Not Applicable</option>
+                    <option value="GST">GST</option>  
+                    
+                </select>
+            </div>
+        </div>
+        
+        
+        
+        <div class="row container-fluid   p-2 m-0 hide" id="Approp01">
+            <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Appropriate to</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="appropriate_to" id="Approp1" class="form-control" onchange="showbased()">
+                    <option value="Both">Both</option>
+                    <option value="Goods">Goods</option>
+                    <option value="Services">Services</option>   
+                    
+                </select>
+            </div>
+        </div>
+        
+        <div class="row container-fluid   p-2 m-0 hide " id="mtdcalc01">
+            <div class="col-sm-6 m-0 p-0 "> <label for="mtdcalc">Method of Calculation</label></div>
+            <div class="col-sm-6 m-0 p-0">
+                <select name="method_of_calc" id="mtdcalc1" class="form-control">
+                    <option value="Based_on_Value" >Based on value</option>
+                    <option value="Based_on_Quntity" id="qlty">Based on quantity</option>    
+                </select>
+            </div>
+        </div>
+        
+        
+        
+        
+
+    
+    
+</div>
+<script>
+    
+function showdirctexp2(){
+    var status = document.getElementById("typldr");
+    var a = status.value
+    console.log(a);
+    if( a == "Not_applicable" ){
+        console.log(a);
+
+        document.getElementById('dirctexpns2').style.display = "block";
+        document.getElementById('roundmd0').style.display = "none";
+        document.getElementById('rndlmt0').style.display = "none";
+    }
+    else if( a == "invroundg" ){
+        console.log(a);
+
+        document.getElementById('roundmd0').style.display = "block";
+        document.getElementById('rndlmt0').style.display = "block";
+        document.getElementById('dirctexpns2').style.display = "none";
+        
+    }
+    else{
+        document.getElementById('dirctexpns2').style.display = "none";
+        document.getElementById('roundmd0').style.display = "none";
+        document.getElementById('rndlmt0').style.display = "none";
+        
+    }
+}
+function showdirctexp3(){
+    var status = document.getElementById("applicablegst");
+    var a = status.value
+    console.log(a);
+    if( a == "Applicable" ){
+        console.log(a);
+
+        document.getElementById('stgst0').style.display = "block";
+        document.getElementById('typsofsply0').style.display = "block";
+        document.getElementById('calcgst0').style.display = "none";
+        
+    }
+    else if( a == "Not_Applicable" ){
+        console.log(a);
+
+        document.getElementById('calcgst0').style.display = "block";
+        document.getElementById('stgst0').style.display = "none";
+        document.getElementById('typsofsply0').style.display = "none";
+        
+    }
+    else if( a == "Undefined" ){
+        console.log(a);
+
+        document.getElementById('calcgst0').style.display = "none";
+        document.getElementById('stgst0').style.display = "block";
+        document.getElementById('typsofsply0').style.display = "block";
+        
+    }
+
+    else{
+        document.getElementById('stgst0').style.display = "none";
+        document.getElementById('typsofsply0').style.display = "none";
+        document.getElementById('calcgst0').style.display = "none";
+    }
+}
+
+function showAssets2(){
+    var status = document.getElementById("calcgst2");
+    var a = status.value;
+    console.log(a);
+    if( a == "GST" ){
+        console.log(a);
+
+        document.getElementById('mtdcalc01').style.display = "flex";
+        document.getElementById('Approp01').style.display = "flex";
+    }
+    else{
+        
+        document.getElementById('mtdcalc01').style.display = "none";
+        document.getElementById('Approp01').style.display = "none";
+    }
+}
+
+</script>
+
+
+</div>
+
+<div class="dutiesandtax1 p-0 m-0 w-100 hide" id="dutiesandtax1">
+
+    <div class="row container-fluid   p-2 m-0 " id="typdty0">
+        <div class="col-sm-6 m-0 p-0 "> <label for="">Type of Duty/Tax</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="type_of_duty_or_tax" id="typdty" class="form-control" onchange="showdutiesandtax2()">
+                <option value="null">----Select---</option>
+                <option value="gst">GST</option>
+                <option value="other">Other</option>
+                 
+            </select>
+        </div>
+    </div>
+
+    <div class="row container-fluid   p-2 m-0 hide " id="taxtyp0">
+        <div class="col-sm-6 m-0 p-0 "> <label for="">Tax Type</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="type_of_tax" id="taxtyp" class="form-control" onchange="showdutiesandtax3()">
+                <option value="null">----Select---</option>
+                <option value="central">Central Tax</option>
+                <option value="cess">Cess</option>
+                <option value="integrated">Integrated Tax</option>
+                <option value="state">State Tax</option>
+                 
+            </select>
+        </div>
+    </div>
+
+    <div class="row container-fluid   p-2 m-0 hide " id="valtyp0">
+        <div class="col-sm-6 m-0 p-0 "> <label for="mtdcalc">Valuation Type</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="valuation_type" id="valtyp" class="form-control" onchange="showdutiesandtax4()">
+                <option value="" >---Select---</option>
+                <option value="any" >Any</option>
+                <option value="Based_on_Value" >Based on value</option>
+                <option value="Based_on_Quntity">Based on quantity</option>    
+            </select>
+        </div>
+    </div>
+
+    <div class="row container-fluid  p-2 m-0 hide w-100"  id="rtprunit0" >
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Rate per unit</label></div>
+        <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="rtprunit" placeholder="" name="rate_per_unit" value="0"></div>
+    </div>
+
+    <div class="row container-fluid  p-2 m-0 hide w-100"  id="prstgcalc0" >
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Percentage of calcution </label></div>
+        <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="prstgcalc" placeholder="" name="Persentage_of_calculation" value="0%"></div>
+    </div>
+</div>
+
+<script>
+function showdutiesandtax2(){
+    var status = document.getElementById("typdty");
+    var a = status.value
+    console.log(a);
+    if( a == "gst" ){
+        console.log(a);
+        document.getElementById('taxtyp0').style.display = "flex";
+        document.getElementById('roundmd20').style.display = "flex";
+        document.getElementById('rndlmt20').style.display = "none";
+        document.getElementById('Statutory_Details').style.display = "none";
+        document.getElementById('prstgcalc0').style.display = "none";
+        document.getElementById('valtyp0').style.display = "none";
+    }
+    else if( a == "other" ){
+        console.log(a);
+
+        document.getElementById('prstgcalc0').style.display = "flex";
+        document.getElementById('Statutory_Details').style.display = "flex";
+        document.getElementById('taxtyp0').style.display = "none";
+        document.getElementById('roundmd20').style.display = "none";
+        document.getElementById('rndlmt20').style.display = "none";
+        document.getElementById('valtyp0').style.display = "none";
+        
+    }
+    else{
+        document.getElementById('Statutory_Details').style.display = "none";
+        document.getElementById('prstgcalc0').style.display = "none";
+        document.getElementById('taxtyp0').style.display = "none";
+        document.getElementById('roundmd20').style.display = "none";
+        document.getElementById('rndlmt20').style.display = "none";
+        document.getElementById('valtyp0').style.display = "none";
+        
+        
+    }
+}
+
+
+function showdutiesandtax3(){
+    var status = document.getElementById("taxtyp");
+    var a = status.value
+    console.log(a);
+    if( a == "central" ){
+        console.log(a);
+
+        document.getElementById('prstgcalc0').style.display = "flex";
+        document.getElementById('valtyp0').style.display = "none";
+        
+    }
+    else if( a == "cess" ){
+        console.log(a);
+
+        document.getElementById('valtyp0').style.display = "flex";
+        document.getElementById('prstgcalc0').style.display = "none";
+      
+        
+    }
+    else{
+        document.getElementById('valtyp0').style.display = "none";
+        document.getElementById('prstgcalc0').style.display = "none";
+        
+        
+    }
+}
+
+function showdutiesandtax4(){
+    var status = document.getElementById("valtyp");
+    var a = status.value
+    console.log(a);
+    if( a == "Based_on_Value" ){
+        console.log(a);
+
+        document.getElementById('prstgcalc0').style.display = "flex";
+        document.getElementById('rtprunit0').style.display = "none";
+        
+    }
+    else if( a == "Based_on_Quntity" ){
+        console.log(a);
+
+        document.getElementById('rtprunit0').style.display = "flex";
+        document.getElementById('prstgcalc0').style.display = "none";
+      
+        
+    }
+    else if( a == "any" ){
+        console.log(a);
+        document.getElementById('prstgcalc0').style.display = "flex";
+        document.getElementById('rtprunit0').style.display = "none";
+      
+        
+    }
+    else{
+        document.getElementById('rtprunit0').style.display = "none";
+        document.getElementById('prstgcalc0').style.display = "none";
+        
+        
+    }
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row container-fluid   p-2 m-0 hide w-100" id="roundmd20">
+    <div class="col-sm-6 m-0 p-0 "> <label for="">Rounding Method</label></div>
+    <div class="col-sm-6 m-0 p-0">
+        <select name="rounding_method" id="roundmd2" class="form-control" onchange="rounding()">
+            <option value="null">Not Applicable</option>
+            <option value="Down_Rounding">Down Rounding</option>
+            <option value="Normal_Rounding">Normal Rounding</option>
+            <option value="Up_Rounding">Up Rounding</option>
+        </select>
+    </div>
+</div>
+
+<div class="row container-fluid  p-2 m-0 hide w-100"  id="rndlmt20" >
+    <div class="col-sm-6 m-0 p-0"> <label for="pan">Round limit</label></div>
+    <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="rndlmt2" placeholder="" name="round_limit" value="1"></div>
+</div>
+
+<div class="dirctexpns4 hide py-3 m-0 w-100" id="dirctexpns4">
+
+    <h5>Statutory Details</h5>
+    <div class="row container-fluid   p-2 m-0 " id="applicablegst20">
+        <div class="col-sm-6 m-0 p-0 "> <label for="">Is GST applicable</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="gst_applicable" id="applicablegst2" class="form-control" onchange="showdirctexp4()">
+                <option value="">----Select----</option>
+                <option value="Not_Applicable"> Not Applicable</option>
+                <option value="Applicable">Applicable</option>
+                <option value="Undefined">Undefined</option>
+            </select>
+        </div>
+    </div>         
+
+    <div class="row container-fluid  p-2 m-0 hide" id="stgst20">
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Set/Alter GST details </label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="set_alter_GST" id="stgst2" class="form-control">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>  
+                
+            </select>
+        </div>          
+    </div>
+
+    <div class="row container-fluid  p-2 m-0  w-100 hide"  id="typsofsply20" >
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Types of Supply</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="type_of_supply" id="typsofsply2" class="form-control">
+                <option value="Service">Service</option>
+                <option value="Goods">Goods</option>  
+                
+            </select>
+        </div>
+    </div>
+</div>
+<script>
+    
+function showdirctexp4(){
+    var status = document.getElementById("applicablegst2");
+    var a = status.value
+    console.log(a);
+    console.log("hope");
+    if( a == "Applicable" ){
+        console.log(a);
+
+        document.getElementById('stgst20').style.display = "flex";
+        document.getElementById('typsofsply20').style.display = "flex";
+        
+        
+    }
+    else if( a == "Not_Applicable" ){
+        console.log(a);
+
+        
+        document.getElementById('stgst20').style.display = "none";
+        document.getElementById('typsofsply20').style.display = "none";
+        
+    }
+    else if( a == "Undefined" ){
+        console.log(a);
+
+       
+        document.getElementById('stgst20').style.display = "none";
+        document.getElementById('typsofsply20').style.display = "flex";
+        
+    }
+
+    else{
+        document.getElementById('stgst20').style.display = "none";
+        document.getElementById('typsofsply20').style.display = "none";
+        
+    }
+}
+
+
+</script>
+
+
+<div class="Sundry_commit py-2 m-0 hide" id="Sundry_commit">
+
+    <div class="row container-fluid  p-2 m-0 " id="billbybill0">
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Maintain balance Bill by Bill</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="maintain_balance_bill_by_bill" id="billbybill" class="form-control" onchange="bill()">
+                <option value="">--Select---</option> 
+                <option value="Yes">Yes</option>  
+                <option value="No">No</option>
+
+            </select>
+        </div>          
+    </div>
+
+    <div class="row container-fluid  p-2 m-0 hide w-100"  id="Default_Credit_period0" >
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Default credit period</label></div>
+        <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="default_Credit_period" placeholder="" name="default_credit_period" value="1"></div>
+    </div>
+
+    <div class="row container-fluid  p-2 m-0 hide" id="creditdays0">
+        <div class="col-sm-6 m-0 p-0"> <label for="pan">Check for credit days during voucher enter</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="check_for_credit_days" id="creditdays" class="form-control">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>  
+            </select>
+        </div>          
+    </div>
+
+
+
+</div>
+<script>
+    
+function bill(){
+            var status = document.getElementById("billbybill");
+            var a = status.value
+            console.log(a);
+            if( a == "Yes" ){
+                console.log(a);
+
+                document.getElementById('Default_Credit_period0').style.display = "flex";
+                document.getElementById('creditdays0').style.display = "flex";
+            }
+            else{
+                
+                document.getElementById('Default_Credit_period0').style.display = "none";
+                document.getElementById('creditdays0').style.display = "none";
+            }
+        }
+
+</script>
+
+
+
+
+
+<div class="Statutory_Details hide p-0 m-0 w-100" id="Statutory_Details">
+    <h6 class="p-3">Statutory Details</h6>
+    
+    <div class="row container-fluid   p-2 m-0 ">
+        <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Include assessable value calculations for </label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="assessable_calculation" id="calcgst" class="form-control" onchange="showAssets()">
+                <option value="Not_Applicable">Not Applicable</option>
+                <option value="GST">GST</option>  
+                
+            </select>
+        </div>
+    </div>
+    
+    
+    
+    <div class="row container-fluid   p-2 m-0 hide w-100 " id="Approp0">
+        <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >Appropriate to</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="Appropriate_to" id="Approp" class="form-control" onchange="showbased()">
+                <option value="Both">Both</option>
+                <option value="Goods">Goods</option>
+                <option value="Services">Services</option>   
+                
+            </select>
+        </div>
+    </div>
+    
+    <div class="row container-fluid   p-2 m-0 hide w-100 " id="mtdcalc0">
+        <div class="col-sm-6 m-0 p-0 "> <label for="mtdcalc">Method of Calculation</label></div>
+        <div class="col-sm-6 m-0 p-0">
+            <select name="" id="Method_of_calc" class="form-control">
+                <option value="Based_on_Value" >Based on value</option>
+                <option value="Based_on_Quntity" id="qlty">Based on quantity</option>    
+            </select>
+        </div>
+    </div>
+    </div>
+    
+    
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-sm-6 m-0 p-4" >
+                        <h5 class="text-center">Mailing Details</h5>
+
+                        <div class="row container-fluid  p-2 m-0">
+                            <div class="col-sm-6 m-0 p-0"> <label for="a">Name</label></div>
+                            <div class="col-sm-6 m-0 p-0"><input name="mailingname" type="text" id="mailingname" class="form-control" placeholder=""></div>
+                            
+                        </div>
+                        <div class="row container-fluid   p-2 m-0">
+                            <div class="col-sm-6 m-0 p-0"> <label for="adrs">Address</label></div>
+                            <div class="col-sm-6 m-0 p-0"><textarea name="address" type="text" rows="4" class="form-control" id="adrs" placeholder=""></textarea></div>
+                        </div>
+
+                        <div class="row container-fluid   p-2 m-0">
+                            <div class="col-sm-6 m-0 p-0"> <label for="ctry">Country</div>
+                            <div class="col-sm-6 m-0 p-0">
+                                <input name="country" type="text" id="country" value="{{cmp.country.name}}" class="form-control" placeholder=""> 
+                            </div>
+                        </div>
+
+                        <div class="row container-fluid  p-2 m-0">
+                            <div class="col-sm-6 m-0 p-0"> <label for="state">State</label></div>
+                            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control "  value="{{cmp.state.name}}" id="state" placeholder="" name="state"></div>
+                            
+                        </div>
+
+                        <div class="row container-fluid  p-2 m-0">
+                            <div class="col-sm-6 m-0 p-0"> <label for="pin">PIN</label></div>
+                            <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="pin" placeholder="" name="pincode"></div>
+                            
+                        </div>
+                    
+                        <div class="row container-fluid   p-2 m-0" id="bankdetails">
+                            <h6 id="bank2">Banking Details</h6>
+                            <div class="row container-fluid   p-2 m-0"  >
+                                <div class="col-sm-6 m-0 p-0"> <label for="bank">Provide bank details</label></div>
+                                <div class="col-sm-6 m-0 p-0">
+                                    <select name="provide_banking_details" id="bank" class="form-control">
+                                        <option value="No">No</option> 
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h6>Tax Registration Details</h6>
+
+                            <div class="row container-fluid  p-2 m-0">
+                                <div class="col-sm-6 m-0 p-0"> <label for="pan">PAN/IT No.</label></div>
+                                <div class="col-sm-6 m-0 p-0"><input type="text" name="pan_no" class="form-control" id="pan" placeholder=""></div>
+                                
+                            </div>
+
+                            <!-- <div class="row container-fluid   p-2 m-0">
+                                <div class="col-sm-6 m-0 p-0"> <label for="rgtype" >registration Type</label></div>
+                                <div class="col-sm-6 m-0 p-0">
+                                    <select name="register_type" id="regtype" class="form-control">
+                                        <option value="Regular">Regular</option> 
+                                        <option value="Composition">Composition</option>
+                                        <option value="Consumer">Consumer</option>
+                                        <option value="Unregistered">Unregistered</option>
+                                        <option value="Unknown">Unknown</option>
+                                         
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row container-fluid  p-2 m-0">
+                                <div class="col-sm-6 m-0 p-0"> <label for="gstin">GSTIN/UN No.</label></div>
+                                <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="gstin" placeholder="" name="gst_uin"></div>
+                                
+                            </div>
+
+                            <div class="row container-fluid  p-2 m-0">
+                                <div class="col-sm-6 m-0 p-0"> <label for="setgst">Set/Alter GST Details</label></div>
+                                <div class="col-sm-6 m-0 p-0">
+                                    <select name="alter_gst_details" id="stgst" class="form-control">
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>  
+                                    </select>
+                            </div>
+                                
+                            </div>
+
+                         -->
+                    
+                        </div>
+                </div>
+            </div>
+                <div class="enter w-100 py-4"><button class="btn btn-info w-25 px-4">CREATE</button></div>   
+                
+            </form>
+        </div>
+
+  
+        
+    {% endblock %}

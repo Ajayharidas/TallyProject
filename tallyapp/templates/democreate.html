@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<form action="{% url 'demo1' 46 %}" method="POST">
+    {% csrf_token %}
+    <div class="col-sm-8 m-0 p-0">
+        <select id="subled" name="maintain_accounts" class=" form-control">
+            <option value="True">Yes</option>
+            <option value="False" selected>No</option>
+        </select>
+    </div>     <input type="submit" value="sub">
+</form>
+
+{% endblock %}

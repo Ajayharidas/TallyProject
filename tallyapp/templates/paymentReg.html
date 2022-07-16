@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+<style>
+    .contra_head{
+        background-color: transparent;
+        height: 105px;
+        box-shadow: none;
+    }
+    .contra_head .card-title{
+        font-size: small;
+    }
+    .contra_head .card-text .row{
+        width:100%;
+    }
+    .flex-column{
+        width: 15%;
+        background-color: rgba(0,0,0,0.2);
+        height: 100%;
+    }
+    .modal-body .list-group .list-group-item{
+        background-color: transparent;
+        border: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+</style>
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-10 p-0" style="background-color:rgba(0,0,0,0.2);height: 100%;">
+        <div  class="bg-info text-light">&nbsp; &nbsp;  Payment Register<span style="margin-left: 40%;">{{comp.name}}</span></div>
+        <div class="row container-fluid m-0 mt-4 w-100 p-0">
+            <span class="card border-bottom border-top w-75 rounded-0 contra_head">
+                <div class="card-body">
+                    <div class="card-text mt-3"><b>P a r t i c u l a r s</b></div>
+                </div>
+            </span>
+            <span class="card border w-25 text-center rounded-0 contra_head">
+                <div class="card-body p-0">
+                    <div class="card-title border-bottom mb-0">
+                        <i>Payment</i><br><b>{{comp.name}}</b><br>For 
+                    </div>
+                    <div class="card-text border-bottom">
+                        <b>Transactions</b>
+                    </div>
+                    <div class="card-text row container-fluid p-0 ml-1">
+                        <span class="col-sm-6 border-right p-0">Total Vouchers</span>
+                        <span class="col-sm-6 p-0">(Cancelled)</span>
+                    </div>
+                </div>
+            </span>
+        </div>
+        <div class="row container-fluid m-0 mt-2 w-100 p-0">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="w-75">ff</td>
+                        <td class="w-25 text-center">dfs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row container-fluid m-0 w-100 p-0">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="w-75 m-0 p-0 pl-3">Grand Total</td>
+                        <td class="w-25 m-0 p-0 text-center">0000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <nav class="nav flex-column ml-auto">
+        <li class="nav-item text-left">
+            <a href="" class="nav-link">Select</a>
+        </li>
+        <li class="nav-item text-left">
+            <a href="" class="nav-link" data-toggle="modal" data-target="#myModal">Voucher Type</a>
+        </li>
+    </nav>
+    <div class="modal fade" id="myModal" style="margin-top: 150px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-info p-0 m-0">
+                    <h6 class="modal-title ml-3">Monthly Voucher Type</h6>
+                </div>
+                <div class="modal-body">
+                    <div class="text-right"><a href="">Create</a></div>
+                    <hr class="mt-0">
+                    <ul class="list-group">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Morbi leo risus</li>
+                        <li class="list-group-item">Porta ac consectetur ac</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

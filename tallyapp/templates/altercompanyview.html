@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-4 m-0 p-0"></div>
+    <div class="col-sm-4 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);height: 400px;">
+        <!-- <a href="javascript:history.go(-1);" class="close">+</a> -->
+    <div  class="bg-info text-light">List of Companies</div>
+    
+            
+           
+
+           <div>
+               <table>
+                <br>
+                {% for i in com %}
+                {% if i.active == 1 %}
+                
+                <tr>
+                    
+                <div style="margin-left: 15px;"><a href="{% url 'altercompany' i.id %}">{{i.name}}</a></div>
+                </tr>
+                {% endif %}
+                {% endfor %}
+               </table>
+           </div>
+        </div>
+    </div>
+   
+
+{% endblock %}

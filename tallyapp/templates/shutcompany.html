@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+    .close {
+        position: absolute;
+        top: 3px;
+        right: 8px;
+        font-size: 25px;
+        color: rgb(255, 255, 255);
+        transform: rotate(45deg);
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .flexy{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+</style>
+<script>
+    
+    function confirm(){
+        alert('Are you sure you want to shut this company??');
+    }
+    </script>
+
+
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-4 m-0 p-0"></div>
+    <div class="col-sm-4 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);">
+        <!-- <a href="javascript:history.go(-1);" class="close">+</a> -->
+    <h6  class="bg-info text-light p-2">List of Companies</h6>
+
+           <div>
+               <table>
+               {% for i in com %}
+               {% if i.active == 0 %}
+
+               {% else %}
+               <tr><a href="{% url 'disable' i.id %}"  onclick="confirm()" id='mySelect'>&nbsp;&nbsp;{{i.name}}</a>
+                <br></tr>
+                {% endif %}
+               {% endfor %}
+               </table>
+           </div>
+        </div>
+    </div>
+   
+
+</div>
+</div>
+<div class="col-sm-3  m-0 p-0"></div>
+
+</div> 
+
+
+
+
+{% endblock %}

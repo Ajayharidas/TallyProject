@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+    .close {
+        position: absolute;
+        top: 3px;
+        right: 8px;
+        font-size: 25px;
+        color: rgb(255, 255, 255);
+        transform: rotate(45deg);
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .flexy{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+</style>
+
+
+
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-3 m-0 p-0"></div>
+    <div class="col-sm-6 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);">
+        <a href="javascript:history.go(-1);" class="close">+</a>
+    <h6  class="bg-info text-light p-2">Currency Creation</h6>
+    <div  style="text-align: center;margin-top:-35px;font-weight:900">{{cmp.name}}</div>
+
+<form id="myForm" action="{% url 'currency' cmp.id %}" method="post" class="p-5">
+        {% csrf_token %}
+   
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="gname">Symbol :</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input type="text" id="gname" onfocus="this.value=''" name="symbol" class="form-control" placeholder=""></div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="gname">Formal name :</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input type="text" id="gname" onfocus="this.value=''" name="formal_name" class="form-control" placeholder=""></div> 
+                    </div>
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="gname">ISO Currency Code :</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input type="text" id="gname" onfocus="this.value=''" name="currency_code" class="form-control" placeholder=""></div> 
+                    </div>
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="gname">Number of Decimal Places :</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input type="text" value="2" id="gname" onfocus="this.value=''" name="decimal_places" class="form-control" placeholder=""></div> 
+                    </div>
+
+                   
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="subled">Show Amount in Millions:</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select id="subled" name="show_in_millions" class=" form-control">
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="nett">Suffix Symbol to Amount:</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select id="nett" name="suffix_symbol" class=" form-control">
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="nett">Add space between Symbol and Amount:</label></div>
+                        <div class="col-sm-8 m-0 p-0">
+                            <select id="nett" name="symbol_and_amount" class=" form-control">
+                                <option value="True">Yes</option>
+                                <option value="False" selected>No</option>
+                            </select>
+                        </div> 
+                    </div>
+
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="gname">Word Representing Amount After Decimal:</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input type="text" id="gname" onfocus="this.value=''" name="after_decimal" class="form-control" placeholder=""></div> 
+                    </div>
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-4 m-0 p-0"> <label for="gname">Number of Decimal Places for Amount in Words:</label></div>
+                        <div class="col-sm-8 m-0 p-0"><input value="2" type="text" id="gname" onfocus="this.value=''" name="amount_in_words" class="form-control" placeholder=""></div> 
+                    </div>
+                    <div class="col text-center" >
+                        <button   type="submit" class="btn btn-info" >Create</button>
+                    <!-- <input  type="submit" value="create"> -->
+                    </div>
+                    <!-- <div class="flexy w-100 py-4"><button id="cbtn" type="button" class="btn btn-info w-50">Create</button></div> -->
+    
+</form>
+
+</div>
+</div>
+<div class="col-sm-3  m-0 p-0"></div>
+
+</div> 
+
+
+
+
+{% endblock %}

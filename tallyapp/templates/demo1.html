@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<style>
+    .close {
+        position: absolute;
+        top: 3px;
+        right: 8px;
+        font-size: 25px;
+        color: rgb(255, 255, 255);
+        transform: rotate(45deg);
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .flexy{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+</style>
+
+
+
+<div class="m-0">
+    
+        <a href="javascript:history.back();" class="close">+</a>
+    <h6 style="" class="bg-info text-light p-2">Group Creation</h6>
+    <form  style="background-color:rgba(0,0,0,.4);">
+        <div class="row container-fluid  p-0 m-0" style=" border: 1px solid rgba(128, 128, 128, 0.6);">
+            <div class="col-sm-6 m-0 p-6" style=" border-right: 1px solid rgba(128, 128, 128, 0.6);">
+                <div class="row container-fluid   p-2 m-0">
+                    <div class="col-sm-6 m-0 p-0"> <label for="bank">Provide bank details</label></div>
+                    <div class="col-sm-2 m-0 p-0">
+                        <select name="Activate" id="bank" class="form-control">
+                            <option value="No">No</option> 
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row container-fluid   p-2 m-0">
+                    <div class="col-sm-6 m-0 p-0"> <label for="bank">Provide bank details</label></div>
+                    <div class="col-sm-2 m-0 p-0">
+                        <select name="Activate" id="bank" class="form-control">
+                            <option value="No">No</option> 
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+
+                
+            </div>
+<div class="col-sm-4 m-0 p-4" style=" border-right: 1px solid rgba(128, 128, 128, 0.6);">
+                <div class="row container-fluid   p-2 m-0">
+                    <h6>Banking Details</h6>
+                    
+
+                    <h6>Tax Registration Details</h6>
+
+
+                
+            
+                </div>
+        </div>
+    </div>
+    <div><input type="submit" style="margin-left: 250px;" value="create" class="btn btn-info"></div>  
+        
+    </form>
+</div>
+
+
+{% endblock %}
