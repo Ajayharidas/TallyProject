@@ -412,26 +412,63 @@ def enable(request,pk):
 #Account Books/Registeers............................
 
 def displaymore(request,pk):
-    comp  = Companies.objects.get(id=pk)
-    context = {'comp':comp}
+    com  = Companies.objects.get(id=pk)
+    context = {'com':com}
     return render(request,'displaymore.html',context)
 
 def accountBook(request,pk):
-    comp  = Companies.objects.get(id=pk)
-    context = {'comp':comp}
+    com  = Companies.objects.get(id=pk)
+    context = {'com':com}
     return render(request,'accountBook.html',context)
 
 def contraReg(request,pk):
-    comp = Companies.objects.get(id=pk)
-    context = {'comp':comp}
+    com = Companies.objects.get(id=pk)
+    vou = Voucher.objects.filter(company_id=pk)
+    v = Accounting_Voucher_Creation.objects.get(company_id=pk)
+    print(v.id)
+    vouchers_list = list_of_Vouchers_created.objects.filter(voucher_creation_id=v.id)
+    print(list(vouchers_list))
+    context = {'com':com,'vou':vou}
     return render(request,'contraReg.html',context)
 
 def paymentReg(request,pk):
-    comp = Companies.objects.get(id=pk)
-    context = {'comp':comp}
+    com = Companies.objects.get(id=pk)
+    vou = Voucher.objects.filter(company_id=pk)
+    context = {'com':com,'vou':vou}
     return render(request,'paymentReg.html',context)
 
 def receiptReg(request,pk):
-    comp = Companies.objects.get(id=pk)
-    context = {'comp':comp}
+    com = Companies.objects.get(id=pk)
+    vou = Voucher.objects.filter(company_id=pk)
+    context = {'com':com,'vou':vou}
     return render(request,'receiptReg.html',context)
+
+def voucherSec(request,pk):
+    com = Companies.objects.get(id=pk)
+    context = {'com':com}
+    if request.method == 'POST':
+        company = Companies.objects.get(id=pk)
+        vname = request.POST['vouName']
+        valias = request.POST['vouAlias']
+        vtype = request.POST['vouType']
+        vabbr = request.POST['vouAbbr']
+        vactive = request.POST['vouAtype']
+        vmethod = request.POST['vouMnumber']
+        vuseadv = request.POST.get('useadvc', False)
+        vprvtdp = request.POST.get('prvtdp', False)
+        vuse = request.POST['vouUse']
+        vzero = request.POST['vouZero']
+        voption = request.POST['vouOpt']
+        vnarration = request.POST['vouNarration']
+        vpro = request.POST['vouPro']
+        vprint = request.POST['vouPrint']
+        if Voucher.objects.filter(voucher_name=vname).exists():
+            pass
+        else:
+            vou = Voucher(voucher_name=vname,alias=valias,voucher_type=vtype,
+            abbreviation=vabbr,active_this_voucher_type=vactive,method_voucher_numbering=vmethod,
+            use_effective_date=vuse,use_adv_conf=vuseadv,prvnt_duplictes=vprvtdp,
+            allow_zero_value_trns=vzero,allow_naration_in_voucher=vnarration,
+            make_optional=voption,provide_naration=vpro,print_voucher=vprint,company=company)
+        vou.save()
+    return render(request,'voucherSec.html',context)

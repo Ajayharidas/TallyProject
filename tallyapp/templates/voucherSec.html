@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+
+<style>
+    .form-inline{
+        margin-top: 20px;
+        margin-left: 5%;
+    }
+    #vouchername{
+        margin-left: 100px;
+    }
+    #alias{
+        margin-left: 98px;
+    }
+</style>
+
+<script>
+    function corresponding(){
+        var status = document.getElementById("vouchertype");
+        var a = status.value
+        console.log(a);
+        if( a == "Attendence" )
+        {
+            document.getElementById("abbr").value = "Attd";
+
+        }
+        else if( a == "contra" ){
+            document.getElementById("abbr").value = "ctra";
+
+        }
+        else if( a == "CreditNote" ){
+            document.getElementById("abbr").value = "C/Note";
+
+        }
+        else if( a == "DebitNote" ){
+            document.getElementById("abbr").value = "D/Note";
+
+        }
+        else if( a == "DeliveryNote" ){
+            document.getElementById("abbr").value = "Dely Note";
+
+        }
+        else if( a == "JobWorkinOrder" ){
+            document.getElementById("abbr").value = "Job Wrk in Ordr";
+
+        }
+        else if( a == "JobWorkOutOrder" ){
+            document.getElementById("abbr").value = "Job Wrk out Ordr";
+
+        }
+        else if( a == "Journal" ){
+            document.getElementById("abbr").value = "Jrnl";
+
+        }
+        else if( a == "MaterialIn" ){
+            document.getElementById("abbr").value = "Mat in";
+
+        }
+        else if( a == "MaterialOut" ){
+            document.getElementById("abbr").value = "Mat out";
+
+        }
+        else if( a == "Memorandum" ){
+            document.getElementById("abbr").value = "Memo";
+
+        }
+        else if( a == "Payment" ){
+            document.getElementById("abbr").value = "Pymt";
+
+        }
+        else if( a == "Payroll" ){
+            document.getElementById("abbr").value = "Pyrl";
+
+        }
+        else if( a == "PhysicalStock" ){
+            document.getElementById("abbr").value = "Phy stk";
+
+        }
+        else if( a == "Purchase" ){
+            document.getElementById("abbr").value = "Purc";
+
+        }
+        else if( a == "PurchaseOrder" ){
+            document.getElementById("abbr").value = "Pruc Order";
+
+        }
+        else if( a == "Receipt" ){
+            document.getElementById("abbr").value = "Rcpt";
+
+        }
+        else if( a == "ReceiptNote" ){
+            document.getElementById("abbr").value = "Rcpt Note";
+
+        }
+        else if( a == "RejectionIn" ){
+            document.getElementById("abbr").value = "Rej In";
+
+        }
+        else if( a == "RejectionOut" ){
+            document.getElementById("abbr").value = "Rej Out ";
+
+        }
+        else if( a == "ReversingJournal" ){
+            document.getElementById("abbr").value = "Rev jrnl";
+
+        }
+        else if( a == "Sales" ){
+            document.getElementById("abbr").value = "Sale";
+
+        }
+        else if( a == "SalesOrder" ){
+            document.getElementById("abbr").value = "Sales Ordr";
+
+        }
+        else if( a == "StockJournal" ){
+            document.getElementById("abbr").value = "Stk jrnl";
+
+        }
+
+    }
+</script>
+
+<div class="row container-fluid p-0 mx-0">
+    <div class="col-sm-12 p-0" style="background-color:rgba(0,0,0,0.2);height: 100%;">
+        <div  class="bg-info text-light">&nbsp; &nbsp;  Voucher Type Creation(Secondary)<span style="margin-left: 30%;">{{com.name}}</span></div>
+        <div class="row container-fluid mx-0 p-0 w-100">
+            <form class="w-100" method="post">
+                {% csrf_token %}
+                <div class="row container-fluid">
+                    <div class="form-inline">
+                        <label for="vouchername">Name</label>
+                        <input type="text" class="form-control" id="vouchername" aria-describedby="emailHelp" placeholder="" name="vouName">
+                    </div>
+                </div>
+                <div class="form-inline">
+                  <label for="alias">(alias)</label>
+                  <input type="text" class="form-control" id="alias" placeholder="" name="vouAlias">
+                </div>
+                <div class="row container-fluid p-0 mx-0 mt-4">
+                    <div class="col-sm-6 border">
+                        <div class="col-sm-12"><h5 class="text-center my-4">General</h5></div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="vouchertype" class="mx-3">Select type of voucher</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" onchange="corresponding()" id="vouchertype" aria-describedby="emailHelp" required placeholder="" name="vouType">
+                                    <option value="" selected disabled>select type</option>
+                                    <option value="Attendence" >Attendence</option>
+                                    <option  value="contra">Contra</option>
+                                    <option value="CreditNote">Credit Note</option>
+                                    <option  value="CreditNote">Credit Note</option>
+                                    <option value="DebitNote">Debit Note</option>
+                                    <option  value="DeliveryNote">Delivery Note</option>
+                                    <option value="JobWorkinOrder">Job work in Order</option>
+                                    <option  value="JobWorkOutOrder">Job Work Out Order</option>
+                                    <option  value="Journal">Journal</option>
+                                    <option  value="MaterialIn">Material In</option>
+                                    <option value="MaterialOut">Material Out</option>
+                                    <option  value="Memorandum">Memorandum</option>
+                                    <option  value="Payment">Payment</option>
+                                    <option value="Payroll">Payroll</option>
+                                    <option  value="PhysicalStock">Physical Stock</option>
+                                    <option  value="Purchase">Purchase</option>
+                                    <option value="PurchaseOrder">Purchase Order</option>
+                                    <option  value="Receipt">Receipt</option>
+                                    <option  value="ReceiptNote">Receipt Note</option>
+                                    <option value="RejectionIn">Rejection In</option>
+                                    <option value="RejectionOut">Rejection Out</option>
+                                    <option  value="ReversingJournal">Reversing Journal</option>
+                                    <option value="Sales">Sales</option>
+                                    <option value="SalesOrder">Sales Order</option>
+                                    <option value="StockJournal">Stock Journal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="abbr" class="mx-3">Abbreviation</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="abbr" aria-describedby="emailHelp" placeholder="" name="vouAbbr">
+                            </div>
+                        </div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="activeVtype" class="mx-3">Active this voucher type</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" id="activeVtype" aria-describedby="emailHelp" placeholder="" name="vouAtype">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="MethodNum" class="mx-3">Method of voucher numbering</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" onchange="methodNumbering()" id="MethodNum" aria-describedby="emailHelp" placeholder="" name="vouMnumber">
+                                    <option value="">----select---</option>
+                                    <option value="auto">Automatic</option> 
+                                    <option value="overd">Automatic(Manual Override)</option> 
+                                    <option value="manu">Manual</option>
+                                    <option value="manu">Multi-user Auto</option>
+                                    <option value="none">None</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="useE" class="mx-3">Use effective dates for vouchers</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" id="useE" aria-describedby="emailHelp" placeholder="" name="vouUse">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="zeroValue" class="mx-3">Allow zero-valued transactions</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" id="zeroValue" aria-describedby="emailHelp" placeholder="" name="vouZero">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="optional" class="mx-3">Make this voucher type as 'Optional' by default</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" id="optional" aria-describedby="emailHelp" placeholder="" name="vouOpt">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="allowNarr" class="mx-3">Allow narration in voucher</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" id="allowNarr" aria-describedby="emailHelp" placeholder="" name="vouNarration">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-7 p-0">
+                                <label for="proNarr" class="mx-3">Provide narrations for each ledger in voucher</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <select  class="form-control" id="proNarr" aria-describedby="emailHelp" placeholder="" name="vouPro">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border">
+                        <div class="col-sm-12"><h5 class="text-center my-4">Printing</h5></div>
+                        <div class="row container-fluid mx-0 p-0 my-2">
+                            <div class="col-sm-6 p-0">
+                                <label for="printV">Print voucher after saving</label>
+                            </div>
+                            <div class="col-sm-6 p-0">
+                                <select  class="form-control" id="printV" aria-describedby="emailHelp" placeholder="" name="vouPrint">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 border">
+                        <div class="col-sm-12"><h5 class="text-center my-4">Name of Class</h5></div>
+                    </div>
+                </div>
+                <div class="row container-fluid mx-0 p-0">
+                    <div class="col-sm-4 m-0 p-0"></div>
+                    <div class="col-sm-4 m-0 p-0 text-center">
+                        <button type="submit" class="btn btn-info my-4 w-50">CREATE</button>
+                    </div>
+                    <div class="col-sm-4 m-0 p-0"></div>
+                </div>
+              </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

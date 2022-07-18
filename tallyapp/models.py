@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 
 class Countries(models.Model):
@@ -155,4 +156,20 @@ class Ledger_Sundry(models.Model):
     check_for_credit_days=models.CharField(max_length=225,default="Null",blank=True)
     ledger = models.ForeignKey(Ledger, on_delete=models.CASCADE, blank=True,null=True)
     company=models.ForeignKey(Companies,on_delete=models.CASCADE,blank=True,null=True)
+
+class Accounting_Voucher_Creation(models.Model):
+    date = models.DateField()
+    total_amount = models.CharField(max_length=255)
+    narration = models.CharField(max_length=500)
+    company = models.ForeignKey(Companies,on_delete=models.CASCADE,blank=True,null=True)
+    voucher_type = models.ForeignKey(Voucher,on_delete=models.CASCADE,blank=True,null=True)
+    ledger = models.ForeignKey(Ledger,on_delete=models.CASCADE,blank=True,null=True)
+
+    def __str__(self):
+        return self.voucher_type.voucher_type
+
+class list_of_Vouchers_created(models.Model):
+    amount = models.CharField(max_length=255)
+    voucher_creation = models.ForeignKey(Accounting_Voucher_Creation,on_delete=models.CASCADE,blank=True,null=True)
+    ledger = models.ForeignKey(Ledger,on_delete=models.CASCADE,blank=True,null=True)
     

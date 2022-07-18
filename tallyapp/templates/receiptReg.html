@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
 {% load static %}
+<script src="https://code.jquery.com/jquery-git.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <style>
     .contra_head{
         background-color: transparent;
@@ -18,16 +21,56 @@
         background-color: rgba(0,0,0,0.2);
         height: 100%;
     }
-    .modal-body .list-group .list-group-item{
+    #voucherPop .list-group .list-group-item{
         background-color: transparent;
         border: 0;
         padding-top: 0;
         padding-bottom: 0;
     }
+    #voucherPop{
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #voucherPop .modal-content{
+        background-color: rgb(216, 232, 238);
+        margin-top: 11%;
+        margin-left: auto;
+        width: 25%;
+        height: 76%;
+        border-radius: 0%;
+        border: none;
+    }
+    .list-group-item{
+        color: black;
+        cursor: pointer;
+    }
 </style>
+
+<script>
+    function showVouchers(){
+        document.getElementById('voucherPop').style.visibility= "visible";
+        document.getElementById('voucherPop').style.display = "block";  
+    }
+    window.addEventListener('click',outsideClick)
+    function outsideClick(event){
+        if(event.target == document.getElementById('voucherPop')){
+            document.getElementById('voucherPop').style.visibility = "hidden"
+        }
+    }
+    function setVtype(name){
+        document.getElementById('voucherPop').style.display = "none"
+        document.getElementById('Vname').innerHTML = name
+    }
+</script>
+
 <div class="row container-fluid p-0 mx-0">
     <div class="col-sm-10 p-0" style="background-color:rgba(0,0,0,0.2);height: 100%;">
-        <div  class="bg-info text-light">&nbsp; &nbsp;  Receipt Register<span style="margin-left: 40%;">{{comp.name}}</span></div>
+        <div  class="bg-info text-light">&nbsp; &nbsp;  Receipt Register<span style="margin-left: 40%;">{{com.name}}</span></div>
         <div class="row container-fluid m-0 mt-4 w-100 p-0">
             <span class="card border-bottom border-top w-75 rounded-0 contra_head">
                 <div class="card-body">
@@ -37,7 +80,7 @@
             <span class="card border w-25 text-center rounded-0 contra_head">
                 <div class="card-body p-0">
                     <div class="card-title border-bottom mb-0">
-                        <i>Receipt</i><br><b>{{comp.name}}</b><br>For 
+                        <i id="Vname">Receipt</i><br><b>{{com.name}}</b><br>For 
                     </div>
                     <div class="card-text border-bottom">
                         <b>Transactions</b>
@@ -50,17 +93,17 @@
             </span>
         </div>
         <div class="row container-fluid m-0 mt-2 w-100 p-0">
-            <table class="table">
+            <table class="table p-0 m-0">
                 <tbody>
-                    <tr>
-                        <td class="w-75">ff</td>
-                        <td class="w-25 text-center">dfs</td>
+                    <tr id="ctable">
+                        <td class="w-75 m-0 p-0 pl-3">ff</td>
+                        <td class="w-25 m-0 p-0 text-center">dfs</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="row container-fluid m-0 w-100 p-0">
-            <table class="table">
+            <table class="table p-0 m-0">
                 <tbody>
                     <tr>
                         <td class="w-75 m-0 p-0 pl-3">Grand Total</td>
@@ -69,35 +112,33 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <nav class="nav flex-column ml-auto">
-        <li class="nav-item text-left">
-            <a href="" class="nav-link">Select</a>
-        </li>
-        <li class="nav-item text-left">
-            <a href="" class="nav-link" data-toggle="modal" data-target="#myModal">Voucher Type</a>
-        </li>
-    </nav>
-    <div class="modal fade" id="myModal" style="margin-top: 150px;">
-        <div class="modal-dialog">
+        <div class="modal" id="voucherPop">
             <div class="modal-content">
-                <div class="modal-header bg-info p-0 m-0">
+                <div class="modal-header bg-info p-0 m-0 rounded-0">
                     <h6 class="modal-title ml-3">Monthly Voucher Type</h6>
                 </div>
                 <div class="modal-body">
-                    <div class="text-right"><a href="">Create</a></div>
-                    <hr class="mt-0">
+                    <div class="text-right"><a href="{% url 'voucherSec' com.id %}" class="text-dark">Create</a></div>
+                    <hr class="mt-0 border-dark">
                     <ul class="list-group">
-                        <li class="list-group-item">Cras justo odio</li>
-                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Morbi leo risus</li>
-                        <li class="list-group-item">Porta ac consectetur ac</li>
-                        <li class="list-group-item">Vestibulum at eros</li>
+                        {% for v in vou %}
+                        <li class="list-group-item" onclick="setVtype('{{ v.voucher_type }}');">{{ v.voucher_type }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <nav class="nav flex-column ml-auto">
+        <li class="nav-item text-left">
+            <a href="" class="nav-link">Select</a>
+            <hr class="m-0">
+        </li>
+        <li class="nav-item text-left">
+            <a class="nav-link" onclick="showVouchers();" style="cursor: pointer;">Voucher Type</a>
+            <hr class="m-0">
+        </li>
+    </nav>
 </div>
 
 {% endblock %}

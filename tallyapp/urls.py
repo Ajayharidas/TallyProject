@@ -34,5 +34,6 @@ urlpatterns = [
     path('contraReg/<int:pk>',views.contraReg,name='contraReg'),
     path('paymentReg/<int:pk>',views.paymentReg,name='paymentReg'),
     path('receiptReg/<int:pk>',views.receiptReg,name='receiptReg'),
+    path('voucherSec/<int:pk>',views.voucherSec,name='voucherSec'),
     
 ]

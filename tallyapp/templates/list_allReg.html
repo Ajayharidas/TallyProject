@@ -2,77 +2,14 @@
 {% block body %}
 {% load static %}
 
-<script src="https://code.jquery.com/jquery-git.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-<style>
-    .contra_head{
-        background-color: transparent;
-        height: 105px;
-        box-shadow: none;
-    }
-    .contra_head .card-title{
-        font-size: small;
-    }
-    .contra_head .card-text .row{
-        width:100%;
-    }
-    .flex-column{
-        width: 15%;
-        background-color: rgba(0,0,0,0.2);
-        height: 100%;
-    }
-    #voucherPop .list-group .list-group-item{
-        background-color: transparent;
-        border: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    #voucherPop{
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-    }
-    #voucherPop .modal-content{
-        background-color: rgb(216, 232, 238);
-        margin-top: 11%;
-        margin-left: auto;
-        width: 25%;
-        height: 76%;
-        border-radius: 0%;
-        border: none;
-    }
-    .list-group-item{
-        color: black;
-        cursor: pointer;
-    }
-</style>
-
-<script>
-    function showVouchers(){
-        document.getElementById('voucherPop').style.visibility= "visible";
-        document.getElementById('voucherPop').style.display = "block";  
-    }
-    window.addEventListener('click',outsideClick)
-    function outsideClick(event){
-        if(event.target == document.getElementById('voucherPop')){
-            document.getElementById('voucherPop').style.visibility = "hidden"
-        }
-    }
-    function setVtype(name){
-        document.getElementById('voucherPop').style.display = "none"
-        document.getElementById('Vname').innerHTML = name
-    }
-</script>
 
 <div class="row container-fluid p-0 mx-0">
     <div class="col-sm-10 p-0" style="background-color:rgba(0,0,0,0.2);height: 100%;">
-        <div  class="bg-info text-light">&nbsp; &nbsp;  Payment Register<span style="margin-left: 40%;">{{com.name}}</span></div>
+        <div hidden id="cid">{{ com.id }}</div>
+        <div  class="bg-info text-light">&nbsp; &nbsp;  Contra Register<span style="margin-left: 40%;">{{com.name}}</span></div>
         <div class="row container-fluid m-0 mt-4 w-100 p-0">
+            <span class="col-sm-6">List of All Registers</span>
+            <span class="col-sm-6"></span>
             <span class="card border-bottom border-top w-75 rounded-0 contra_head">
                 <div class="card-body">
                     <div class="card-text mt-3"><b>P a r t i c u l a r s</b></div>
@@ -81,7 +18,7 @@
             <span class="card border w-25 text-center rounded-0 contra_head">
                 <div class="card-body p-0">
                     <div class="card-title border-bottom mb-0">
-                        <i id="Vname">Payment</i><br><b>{{com.name}}</b><br>For 
+                        <i id="Vname">Contra</i><br><b>{{com.name}}</b><br>For 
                     </div>
                     <div class="card-text border-bottom">
                         <b>Transactions</b>
@@ -119,7 +56,7 @@
                     <h6 class="modal-title ml-3">Monthly Voucher Type</h6>
                 </div>
                 <div class="modal-body">
-                    <div class="text-right"><a href="{% url 'voucherSec' com.id %}" class="text-dark">Create</a></div>
+                    <div class="text-right"><a href="{% url 'voucherSec' com.id %}" style="cursor: pointer;" class="text-dark">Create</a></div>
                     <hr class="mt-0 border-dark">
                     <ul class="list-group">
                         {% for v in vou %}
