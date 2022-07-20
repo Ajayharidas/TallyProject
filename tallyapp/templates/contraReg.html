@@ -28,7 +28,7 @@
         padding-top: 0;
         padding-bottom: 0;
     }
-    #voucherPop{
+    #voucherPop,#dpModal{
         display: none;
         position: fixed;
         z-index: 1;
@@ -46,9 +46,19 @@
         border-radius: 0%;
         border: none;
     }
+    #dpModal{
+        background-color: rgba(0,0,0,0.4);
+    }
     .list-group-item{
         color: black;
         cursor: pointer;
+    }
+    #rtype{
+        line-height: 20px;
+        padding: 0;
+    }
+    .notype{
+        line-height: 0px;
     }
 </style>
 
@@ -67,7 +77,36 @@
         document.getElementById('voucherPop').style.display = "none"
         document.getElementById('Vname').innerHTML = name
     }
-    
+    function showDp(){
+        document.getElementById('dpModal').style.visibility= "visible";
+        document.getElementById('dpModal').style.display = "block";  
+    }
+    window.addEventListener('click',outsideClick1)
+    function outsideClick1(event){
+        if(event.target == document.getElementById('dpModal')){
+            document.getElementById('dpModal').style.display = "none"
+        }
+    }
+    function setPeriod(){
+        console.log('hi')
+        var f = document.getElementById('fdate').value;
+        var l = document.getElementById('ldate').value;
+        let txt1 = 'For'
+        let txt2 = 'to'
+        document.getElementById('dperiod').innerHTML = txt1.bold() + ' ' + f + ' ' + txt2.bold() + ' ' + l
+        document.getElementById('dpModal').style.display = "none"
+        
+        pdata = {firstdate:String(f),lastdate:String(l)};
+        $.ajax({
+            url : "{% url 'find_voucherby_date' %}",
+            method : "POST",
+            data : pdata,
+            dataType : "json",
+            success : function(data){
+                console.log(data)
+            }
+        });
+    }
 </script>
 
 
@@ -76,46 +115,32 @@
         <div hidden id="cid">{{ com.id }}</div>
         <div  class="bg-info text-light">&nbsp; &nbsp;  Contra Register<span style="margin-left: 40%;">{{com.name}}</span></div>
         <div class="row container-fluid m-0 mt-4 w-100 p-0">
-            <span class="card border-bottom border-top w-75 rounded-0 contra_head">
-                <div class="card-body">
-                    <div class="card-text mt-3"><b>P a r t i c u l a r s</b></div>
-                </div>
-            </span>
-            <span class="card border w-25 text-center rounded-0 contra_head">
-                <div class="card-body p-0">
-                    <div class="card-title border-bottom mb-0">
-                        <i id="Vname">Contra</i><br><b>{{com.name}}</b><br>For 
-                    </div>
-                    <div class="card-text border-bottom">
-                        <b>Transactions</b>
-                    </div>
-                    <div class="card-text row container-fluid p-0 ml-1">
-                        <span class="col-sm-6 border-right p-0">Total Vouchers</span>
-                        <span class="col-sm-6 p-0">(Cancelled)</span>
-                    </div>
-                </div>
-            </span>
-        </div>
-        <div class="row container-fluid m-0 mt-2 w-100 p-0">
-            <table class="table p-0 m-0" id="pTable">
-                <tbody>
+            <table class="table table-bordered p-0 m-0">
+                <thead class="text-center">
                     <tr>
-                        <td class="w-75 m-0 p-0 pl-3" style="cursor: pointer;">ff</td>
-                        <td class="w-25 m-0 p-0 text-center">dfs</td>
+                        <th rowspan="3" class="text-left" style="vertical-align: middle;"><b>P a r t i c u l a r s</b></th>
+                        <th colspan="2" id="rtype"><i id="Vname">Contra</i><br><b>{{com.name}}</b><br><span id="dperiod">For</span></th>
                     </tr>
                     <tr>
-                        <td class="w-75 m-0 p-0 pl-3" style="cursor: pointer;">ff</td>
-                        <td class="w-25 m-0 p-0 text-center">dfs</td>
+                        <th colspan="2" class="notype">Transactions</th>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="row container-fluid m-0 w-100 p-0">
-            <table class="table p-0 m-0">
+                    <tr>
+                        <th class="notype">Total Vouchers</th>
+                        <th class="notype">(Cancelled)</th>
+                    </tr>
+                </thead>
                 <tbody>
+                    <tr>
+                        <td class="w-75 m-0 p-0 pl-3" style="cursor: pointer;">July</td>
+                        <td class="w-25 m-0 p-0 text-center" colspan="2">{{ vcount }}</td>
+                    </tr>
+                    <tr>
+                        <td class="w-75 m-0 p-0 pl-3" style="cursor: pointer;">August</td>
+                        <td class="w-25 m-0 p-0 text-center" colspan="2">dfs</td>
+                    </tr>
                     <tr>
                         <td class="w-75 m-0 p-0 pl-3">Grand Total</td>
-                        <td class="w-25 m-0 p-0 text-center">0000</td>
+                        <td class="w-25 m-0 p-0 text-center" colspan="2">0000</td>
                     </tr>
                 </tbody>
             </table>
@@ -137,14 +162,15 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="periodModal">
+    <div class="modal" id="dpModal">
         <div class="modal-content w-50 mx-auto" style="margin-top: 10%;">
             <div class="modal-body">
-                <form action="">
-                    <input type="date" class="form-control w-50 mx-auto my-4">
-                    <input type="date" class="form-control w-50 mx-auto my-4">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="date" id="fdate" class="form-control w-50 mx-auto my-4">
+                    <input type="date" id="ldate" class="form-control w-50 mx-auto my-4">
                     <div class="col-sm-12 m-0 p-0 text-center">
-                        <button type="submit" class="btn btn-info my-4 w-25">SET</button>
+                        <input type="button" onclick="setPeriod()" class="btn btn-info my-4 w-25" value="Set">
                     </div>
                 </form>
             </div>
@@ -152,7 +178,7 @@
     </div>
     <nav class="nav flex-column ml-auto">
         <li class="nav-item text-left">
-            <a class="nav-link" data-toggle="modal" data-target="#periodModal" style="cursor: pointer;">Period</a>
+            <a class="nav-link" onclick="showDp()" style="cursor: pointer;">Period</a>
             <hr class="m-0">
         </li>
         <li class="nav-item text-left">

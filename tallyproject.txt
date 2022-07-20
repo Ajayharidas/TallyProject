@@ -1,0 +1,26 @@
+------------------------------------------
+
+Name - Ajay P.h
+Module - Account Books
+            1. Contra Register
+            2. Payment Register
+            3. Receipt Register
+------------------------------------------
+
+Frontend Works
+-------------
+    1. Display More reports
+    2. Account Books
+        - Contra Register
+        - Payment Register
+        - Receipt Register
+    3. Page For Contra Register,Payment Register,Receipt Register
+    4. Select Voucher Type
+    5. Voucher Creation(Secondary)
+    6. Set Date Period
+
+Backend Works
+-------------
+    1. Voucher Creation(Secondary)
+    2. Created Models - Accounting_Voucher_Creation , List_of_vouchers_created
+

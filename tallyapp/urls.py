@@ -35,5 +35,6 @@ urlpatterns = [
     path('paymentReg/<int:pk>',views.paymentReg,name='paymentReg'),
     path('receiptReg/<int:pk>',views.receiptReg,name='receiptReg'),
     path('voucherSec/<int:pk>',views.voucherSec,name='voucherSec'),
+    path('find_voucherby_date',views.find_voucherby_date,name='find_voucherby_date'),
     
 ]

@@ -169,6 +169,7 @@ class Accounting_Voucher_Creation(models.Model):
         return self.voucher_type.voucher_type
 
 class list_of_Vouchers_created(models.Model):
+    date = models.DateField(blank=True,null=True)
     amount = models.CharField(max_length=255)
     voucher_creation = models.ForeignKey(Accounting_Voucher_Creation,on_delete=models.CASCADE,blank=True,null=True)
     ledger = models.ForeignKey(Ledger,on_delete=models.CASCADE,blank=True,null=True)

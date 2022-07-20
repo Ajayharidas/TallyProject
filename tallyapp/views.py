@@ -1,8 +1,13 @@
+import json
 from re import A
 from django.shortcuts import render,redirect
 from .models import *
 from django.contrib import messages
 from django.http import JsonResponse
+import datetime
+from django.views.decorators.csrf import csrf_exempt
+from django.core.serializers.json import DjangoJSONEncoder
+
 def index(request):
     comp=Companies.objects.all()
     return render(request,'index.html',{'comp':comp})
@@ -424,11 +429,11 @@ def accountBook(request,pk):
 def contraReg(request,pk):
     com = Companies.objects.get(id=pk)
     vou = Voucher.objects.filter(company_id=pk)
-    v = Accounting_Voucher_Creation.objects.get(company_id=pk)
-    print(v.id)
-    vouchers_list = list_of_Vouchers_created.objects.filter(voucher_creation_id=v.id)
-    print(list(vouchers_list))
-    context = {'com':com,'vou':vou}
+    vcreated = Accounting_Voucher_Creation.objects.filter(date__gte='2022-07-01',date__lte='2022-07-19')
+    print(len(vcreated))
+    # vouchers_list = list_of_Vouchers_created.objects.filter(voucher_creation_id=i.id)
+
+    context = {'com':com,'vou':vou,'vcreated':vcreated}
     return render(request,'contraReg.html',context)
 
 def paymentReg(request,pk):
@@ -472,3 +477,18 @@ def voucherSec(request,pk):
             make_optional=voption,provide_naration=vpro,print_voucher=vprint,company=company)
         vou.save()
     return render(request,'voucherSec.html',context)
+
+@csrf_exempt
+def find_voucherby_date(request):
+    if request.method == "POST":
+        fdate = request.POST['firstdate']
+        ldate = request.POST['lastdate']
+        vcreated = Accounting_Voucher_Creation.objects.filter(date__gte=fdate,date__lte=ldate).values()
+        date_list = list(vcreated)
+        for d in date_list:
+            list_ofv = list_of_Vouchers_created.objects.filter(voucher_creation_id=d["id"]).values()
+            sq = json.dumps(list(list_ofv),cls=DjangoJSONEncoder)
+            print(sq)
+        return JsonResponse({'term':'get','date_list':date_list})
+    else:
+        return JsonResponse({'term':0})
